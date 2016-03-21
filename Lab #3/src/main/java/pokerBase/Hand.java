@@ -126,6 +126,45 @@ public class Hand {
 		return h;
 	}
 
+	private static boolean isFiveOfAKind(ArrayList<Card> cards) {
+		int cnt = 0;
+		boolean bIsFiveKind = false;
+		for (eRank Rank : eRank.values()){
+			cnt = 0;
+			for (Card o : cards){
+				if (o.geteRank() == Rank){
+					cnt++;
+				}
+			}
+			if (cnt == 5){
+				bIsFiveKind = true;
+			}
+		}
+		return bIsFiveKind;
+	}
+	
+	private static boolean isHandNaturalFlush(ArrayList<Card> cards) {
+		int cnt = 0;
+		boolean bIsNaturalFlush = false;
+		for (Card Card : cards){
+			if (Card.geteRank() == eRank.JOKER){
+				bIsNaturalFlush = false;
+			}
+		}
+		for (eSuit Suit : eSuit.values()) {
+			cnt = 0;
+			for (Card c : cards) {
+				if (c.geteSuit() == Suit) {
+					cnt++;
+				}
+			}
+			if (cnt == 5)
+				bIsNaturalFlush = true;
+
+		}
+		return bIsNaturalFlush;
+	}
+
 	private static boolean isHandFlush(ArrayList<Card> cards) {
 		int cnt = 0;
 		boolean bIsFlush = false;
@@ -523,14 +562,21 @@ public class Hand {
 			return 0;
 		}
 	};
+	
 	public static Hand PickBestHand(ArrayList<Hand> Hands) throws HandException {
 		try {
 			Hand best = new Hand();
 			for(int i = 0; i < Hands.size(); i++) {
-				if (best.getHandScore() > Hands.get(i).getHandScore()) {
-				
-				
+				if (best.getHandScore() != Hands.get(i).getHandScore()) {
+				throw new HandException(best);
+				ArrayList<Hand> Test = new ArrayList<Hand>();
+				Test.add(best);
+				Test.add(Hands.get(i));
+				best = Comparator<Hand> Test;
 			}
+				else {
+					best = Hands.get(i);
+				}
 		}
 	}
 
