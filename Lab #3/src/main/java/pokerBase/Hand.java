@@ -129,6 +129,13 @@ public class Hand {
 	private static boolean isFiveOfAKind(ArrayList<Card> cards) {
 		int cnt = 0;
 		boolean bIsFiveKind = false;
+		
+		for (Card Card : cards){
+			if (Card.geteRank() == eRank.JOKER){
+				return false;
+			}
+		}
+		
 		for (eRank Rank : eRank.values()){
 			cnt = 0;
 			for (Card o : cards){
@@ -146,11 +153,6 @@ public class Hand {
 	private static boolean isHandNaturalFlush(ArrayList<Card> cards) {
 		int cnt = 0;
 		boolean bIsNaturalFlush = false;
-		for (Card Card : cards){
-			if (Card.geteRank() == eRank.JOKER){
-				bIsNaturalFlush = false;
-			}
-		}
 		for (eSuit Suit : eSuit.values()) {
 			cnt = 0;
 			for (Card c : cards) {
@@ -162,6 +164,11 @@ public class Hand {
 				bIsNaturalFlush = true;
 
 		}
+		for (Card Card : cards){
+			if (Card.geteRank() == eRank.JOKER){
+				bIsNaturalFlush = false;
+			}
+		}
 		return bIsNaturalFlush;
 	}
 
@@ -170,15 +177,21 @@ public class Hand {
 		boolean bIsFlush = false;
 		for (eSuit Suit : eSuit.values()) {
 			cnt = 0;
+			int count1 = 0;
 			for (Card c : cards) {
 				if (c.geteSuit() == Suit) {
 					cnt++;
 				}
+				if (c.geteRank() == eRank.JOKER){
+					count1++;
+				}
 			}
-			if (cnt == 5)
+			if (cnt + count1 >= 5)
 				bIsFlush = true;
-
+			
+					
 		}
+	
 		return bIsFlush;
 	}
 
@@ -477,6 +490,19 @@ public class Hand {
 			kickers.add(h.getCardsInHand().get((eCardNo.SecondCard.getCardNo())));
 			kickers.add(h.getCardsInHand().get((eCardNo.ThirdCard.getCardNo())));
 			hs.setKickers(kickers);
+		} else {
+			for (Card Card : h.getCardsInHand()){
+				if (Card.geteRank() == eRank.JOKER){
+					isPair = true;
+					hs.setHandStrength(eHandStrength.Pair.getHandStrength());
+					hs.setHiHand(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr());
+					hs.setLoHand(0);
+					kickers.add(h.getCardsInHand().get((eCardNo.FirstCard.getCardNo())));
+					kickers.add(h.getCardsInHand().get((eCardNo.SecondCard.getCardNo())));
+					kickers.add(h.getCardsInHand().get((eCardNo.ThirdCard.getCardNo())));
+					hs.setKickers(kickers);
+				}
+			}
 		}
 		return isPair;
 	}

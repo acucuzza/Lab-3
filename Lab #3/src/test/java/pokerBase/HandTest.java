@@ -431,7 +431,7 @@ public class HandTest {
 		
 		HandScore hs = new HandScore();
 		ArrayList<Card> Flush = new ArrayList<Card>();
-		Flush.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Flush.add(new Card(eSuit.CLUBS,eRank.JOKER,0));
 		Flush.add(new Card(eSuit.CLUBS,eRank.SIX,0));
 		Flush.add(new Card(eSuit.CLUBS,eRank.SEVEN,0));		
 		Flush.add(new Card(eSuit.CLUBS,eRank.EIGHT,0));
@@ -442,9 +442,9 @@ public class HandTest {
 		
 		boolean bActualIsHandFlush = Hand.isHandFlush(h, hs);
 		boolean bExpectedIsFlush = true;
-		
+	
 		assertEquals(bActualIsHandFlush,bExpectedIsFlush);		
-		assertEquals(hs.getHiHand(),eRank.NINE.getiRankNbr());		
+		assertEquals(hs.getHiHand(),eRank.JOKER.getiRankNbr());		
 	}
 	
 	@Test
@@ -455,7 +455,7 @@ public class HandTest {
 		Flush.add(new Card(eSuit.CLUBS,eRank.ACE,0));
 		Flush.add(new Card(eSuit.CLUBS,eRank.KING,0));
 		Flush.add(new Card(eSuit.CLUBS,eRank.JACK,0));		
-		Flush.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));
+		Flush.add(new Card(eSuit.CLUBS,eRank.JOKER,0));
 		Flush.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
 		Collections.sort(Flush);
 		Hand h = new Hand();
@@ -472,7 +472,7 @@ public class HandTest {
 		int iExpectedIsHandFlush = eHandStrength.Flush.getHandStrength();
 		
 		assertEquals(iActualIsHandFlush,iExpectedIsHandFlush);		
-		assertEquals(h.getHandScore().getHiHand(),eRank.ACE.getiRankNbr());			
+		assertEquals(h.getHandScore().getHiHand(),eRank.JOKER.getiRankNbr());			
 	}	
 	
 	
@@ -771,8 +771,8 @@ public class HandTest {
 		Pair.add(new Card(eSuit.CLUBS,eRank.TWO,0));
 		Pair.add(new Card(eSuit.CLUBS,eRank.THREE,0));
 		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
-		Pair.add(new Card(eSuit.DIAMONDS,eRank.FIVE,0));
-		Pair.add(new Card(eSuit.DIAMONDS,eRank.SEVEN,0));
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.SIX,0));
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.JOKER,0));
 		Collections.sort(Pair);
 		Hand h = new Hand();
 		h = SetHand(Pair,h);
@@ -781,11 +781,11 @@ public class HandTest {
 		boolean bExpectedIsPair = true;
 		
 		assertEquals(bExpectedIsPair,bActualIsPair);		
-		assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());	
+		assertEquals(hs.getHiHand(),eRank.SIX.getiRankNbr());	
 		
 		assertEquals(hs.getLoHand(),0);
 		
-		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.SEVEN);
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.FIVE);
 		assertEquals(hs.getKickers().get(eCardNo.SecondCard.getCardNo()).geteRank(), eRank.THREE);
 		assertEquals(hs.getKickers().get(eCardNo.ThirdCard.getCardNo()).geteRank(), eRank.TWO);
 
