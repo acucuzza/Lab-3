@@ -564,20 +564,10 @@ public class Hand {
 	};
 	
 	public static Hand PickBestHand(ArrayList<Hand> Hands) throws HandException {
-		try {
-			Hand best = new Hand();
-			for(int i = 0; i < Hands.size(); i++) {
-				if (best.getHandScore() != Hands.get(i).getHandScore()) {
-				throw new HandException(best);
-				ArrayList<Hand> Test = new ArrayList<Hand>();
-				Test.add(best);
-				Test.add(Hands.get(i));
-				best = Comparator<Hand> Test;
+		Collections.sort(Hands, HandRank);
+		if(1 < Hands.size() && HandRank.compare(Hands.get(0), Hands.get(1)) == 0){
+			throw new HandException(Hands.get(0));
 			}
-				else {
-					best = Hands.get(i);
+		else return Hands.get(0);
 				}
-		}
 	}
-
-}
